@@ -1,11 +1,12 @@
 import React, {useState, useTransition} from 'react';
+import ChildMood from './ChildMood.component';
 
 const MoodTracker = props => {
     const mouseDivStyle = {
         margin: '0 auto',
         color: 'red',
         border: '5px solid black',
-        width: '100px',
+        width: '1000px',
         height: '100px'
       };
 
@@ -22,6 +23,12 @@ const MoodTracker = props => {
         } else {
             newMoodPoints = state.moodPoints +10; // If false, set newMoodPoints to current moodPoints plus 1
         }
+        setState({
+            ...state,
+            moodPoints: newMoodPoints
+        })
+    }
+    const updateMoodFn = (newMoodPoints) => {
         setState({
             ...state,
             moodPoints: newMoodPoints
@@ -76,6 +83,10 @@ const MoodTracker = props => {
             </form>
             <p>on mouse over this vallue will increase <strong>{state.mouseOverCount}</strong></p>
             <div style={mouseDivStyle} onMouseOver={onMouseOverUpdate}>mouse over to count</div>
+            <ChildMood 
+                moodScore={state.moodPoints}
+                updateMoodFn={updateMoodFn}
+            />
         </div>
     )
 }
